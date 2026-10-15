@@ -275,14 +275,20 @@ button.companion-face { border: 3px solid #fff; padding: 0; cursor: pointer; ove
 .mode-tabs { display: flex; gap: 8px; }
 .mode-tabs .chip { flex: 1; justify-content: center; min-height: 48px; font-size: 1.05rem; }
 html.night body { background: linear-gradient(180deg, #2b2358 0%, #1b1740 70%); color: #f2eeff; }
-html.night { --ink: #f2eeff; --ink-soft: #c9bff0; --line: #4b4280; }
-html.night .card, html.night .room-card, html.night .stop-chip, html.night .badge, html.night .family-code { background: #2f2866; color: #f2eeff; }
-html.night .room-title { background: rgba(47, 40, 102, 0.92); color: #f2eeff; }
-html.night .room-svg { filter: brightness(0.62) saturate(0.9); }
-html.night .stop-chip.done { background: #1d5b63; color: #d6fffb; }
-html.night .stop-chip.next { color: #2a1b4a; }
-html.night .btn.ghost { color: #f2eeff; border-color: #6a5fb0; }
-html.night .bubble { color: #2a1b4a; }
+/* text sitting directly on the dark page is light; white surfaces keep dark text */
+html.night h1, html.night h2, html.night .lead, html.night legend, html.night .topbar, html.night .toggle,
+html.night .screen > .muted, html.night .screen > section > .muted, html.night .screen > section > p { color: #f2eeff; }
+html.night .topbar .rank, html.night h2 small { color: #cfc6f5; }
+html.night :is(.card, .pick, .chip, .bubble, .stop-chip, .badge, .sticker, .route-item, .summary, .done-today, .family-code,
+  .avatar-stage, .text-input, .notice, .pin-grid button, .quiet-icon, .companion-face, .room-card, .btn.ghost, .progress-card) {
+  color: var(--ink);
+}
+html.night .screen :is(.card, .badge, .route-item, .summary, .done-today, .room-card) :is(h1, h2, p, span, strong) { color: var(--ink); }
+html.night .screen :is(.card, .badge, .route-item, .summary, .done-today, .room-card) .muted { color: var(--ink-soft); }
+html.night .chip.sel, html.night .btn.primary { color: #fff; }
+html.night .badge-ok { color: #0f857b; }
+html.night .room-svg { filter: brightness(0.7) saturate(0.9); }
+html.night .btn.ghost { background: rgba(255, 255, 255, 0.88); }
 
 /* gender step */
 .gender-row { display: flex; gap: 14px; justify-content: center; margin: 18px 0; }

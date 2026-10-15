@@ -93,9 +93,10 @@ function Home({ family, onSignOut }) {
     document.documentElement.classList.toggle('calm', state.settings.calm);
   }, [state.settings.calm]);
   useEffect(() => {
-    document.documentElement.classList.toggle('night', mode === 'night');
+    // the dark theme is for the routine screens only, not for the first-time setup
+    document.documentElement.classList.toggle('night', mode === 'night' && !!state.profile);
     return () => document.documentElement.classList.remove('night');
-  }, [mode]);
+  }, [mode, state.profile]);
 
   // Refresh the date when the app returns to the foreground (e.g. next morning).
   useEffect(() => {
