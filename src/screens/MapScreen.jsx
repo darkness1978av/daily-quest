@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import Avatar from '../Avatar.jsx';
 import RoomScene from '../rooms.jsx';
 import { Companion } from '../ui.jsx';
+import BoardView from './BoardView.jsx';
 import { ROOMS, WAKE_TIME, MODES } from '../data.js';
 import { rankFor, stationById, todayPlan, todayRecord, nextStationId, goodDaysIn, assignRooms } from '../logic.js';
 
@@ -13,6 +14,7 @@ export default function MapScreen({ state, mode, onMode, day, line, onOpenStatio
   const nextId = nextStationId(state, day);
   const finishedToday = !!rec?.finished;
   const rank = rankFor(state);
+  const boardView = state.settings.view !== 'rooms';
   const good7 = goodDaysIn(state.log, day, 7);
 
   // Consecutive stations in the same room share one room card.
@@ -31,7 +33,7 @@ export default function MapScreen({ state, mode, onMode, day, line, onOpenStatio
   const nextRef = useRef(null);
   useEffect(() => {
     if (nextRef.current && nextRef.current.scrollIntoView) {
-      nextRef.current.scrollIntoView({ block: 'center', behavior: 'auto' });
+      nextRef.current.scrollIntoView({ block: 'nearest', behavior: 'auto' });
     }
   }, [nextId]);
 
@@ -75,8 +77,21 @@ export default function MapScreen({ state, mode, onMode, day, line, onOpenStatio
         ))}
       </div>
 
-      <Companion profile={profile} line={line} onFaceClick={onCompanion} />
+      {boardView ? null : <Companion profile={profile} line={line} onFaceClick={onCompanion} />}
 
+      {boardView ? (
+        <div className="house-scroll">
+          <BoardView
+            state={state}
+            plan={plan}
+            doneIds={doneIds}
+            nextId={nextId}
+            finishedToday={finishedToday}
+            onOpenStation={onOpenStation}
+            line={line}
+          />
+        </div>
+      ) : (
       <div className="house-scroll">
         {visits.map((v, vi) => {
           const allDone = v.stations.every((s) => doneIds.has(s.id));
@@ -119,6 +134,7 @@ export default function MapScreen({ state, mode, onMode, day, line, onOpenStatio
           );
         })}
       </div>
+      )}
 
       <footer className="dock">
         {finishedToday ? (

@@ -135,6 +135,14 @@ export default function ParentScreen({ state, mode, onMode, dispatch, day, onBac
         <label className="toggle">
           <input
             type="checkbox"
+            checked={state.settings.view !== 'rooms'}
+            onChange={(e) => dispatch({ type: 'SETTINGS', patch: { view: e.target.checked ? 'board' : 'rooms' } })}
+          />
+          תצוגת לוח (מונופול) במקום חדרים
+        </label>
+        <label className="toggle">
+          <input
+            type="checkbox"
             checked={state.settings.calm}
             onChange={(e) => dispatch({ type: 'SETTINGS', patch: { calm: e.target.checked } })}
           />

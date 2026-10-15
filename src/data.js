@@ -179,6 +179,7 @@ export const RANKS = [
 // A companion with `image` shows that picture (a file in /public). If the file is missing, the emoji is shown.
 export const COMPANIONS = [
   { id: 'dog', emoji: '🐕', label: 'הכלב שלנו', suggest: '', image: 'dog.jpg' },
+  { id: 'plush', emoji: '🐶', label: 'כלבלב בובה', suggest: 'פלאפי', plush: 'happy' },
   { id: 'cat', emoji: '🐱', label: 'חתול', suggest: 'מיצי' },
   { id: 'owl', emoji: '🦉', label: 'ינשוף', suggest: 'ינשופית' },
   { id: 'fox', emoji: '🦊', label: 'שועל', suggest: 'זוהר' },

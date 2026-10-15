@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { STICKERS, TIERS, COMPANIONS } from './data.js';
 import { sfx, unlock } from './audio.js';
+import PlushDog from './PlushDog.jsx';
 
 export const stickerById = (id) => STICKERS.find((s) => s.id === id);
 
@@ -11,6 +12,7 @@ export function fillName(text, profile) {
 // A companion's face: a photo if it has one (and the file exists), otherwise its emoji.
 export function CompanionFace({ companion, size = 64 }) {
   const [failed, setFailed] = useState(false);
+  if (companion?.plush) return <PlushDog size={size} pose={companion.plush} />;
   if (companion?.image && !failed) {
     return (
       <img
